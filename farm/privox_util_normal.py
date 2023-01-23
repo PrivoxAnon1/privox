@@ -1,8 +1,6 @@
 import contextlib, asyncio, aiohttp
 import json
-from privox_config import PV_VALIDATE_USER_URL, PV_POST_TRANSACTION_URL
-
-PRODUCER_FARM_AUTH_KEY = ''
+from privox_config import PV_VALIDATE_USER_URL, PV_POST_TRANSACTION_URL, PRODUCER_FARM_AUTH_KEY
 
 client_sockets_lock = asyncio.Lock()
 async def event_wait(evt, timeout):
@@ -65,6 +63,9 @@ async def delete_socket_key(socket_id, key, client_sockets):
 
 async def write_transaction(which, data):
     response = {}
+    if PV_POST_TRANSACTION_URL == '':
+        return response
+
     async with aiohttp.ClientSession() as session:
         headers = {'Content-Type': 'application/json', 'X-WHICH': which}
         async with session.post(PV_POST_TRANSACTION_URL, headers=headers, json=data) as resp:
@@ -79,6 +80,9 @@ async def write_transaction(which, data):
 
 
 async def validate_client_connection(endpoint_key):
+    if PV_VALIDATE_USER_URL == '':
+        return 2000000
+
     validate_url = PV_VALIDATE_USER_URL + endpoint_key
     async with aiohttp.ClientSession() as session:
         headers = {'Content-Type': 'text/html'}

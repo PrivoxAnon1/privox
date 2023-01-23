@@ -1,8 +1,6 @@
 import contextlib, asyncio, aiohttp
 import json
-from privox_config import PV_VALIDATE_USER_URL, PV_POST_TRANSACTION_URL
-
-PRODUCER_FARM_AUTH_KEY = ''
+from privox_config import PV_VALIDATE_USER_URL, PV_POST_TRANSACTION_URL, PRODUCER_FARM_AUTH_KEY
 
 client_sockets_lock = asyncio.Lock()
 async def event_wait(evt, timeout):

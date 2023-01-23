@@ -1,13 +1,11 @@
 import contextlib, asyncio
 import urllib.request
 import json
-from privox_config import PV_VALIDATE_USER_URL, PV_POST_TRANSACTION_URL
+from privox_config import PV_VALIDATE_USER_URL, PV_POST_TRANSACTION_URL, PRODUCER_FARM_AUTH_KEY
 
 ### Warning! do not use this file unless you can not run aiohttp
 # If you can't run aiohttp then overwrite privox_utils.py with this
 # file. 
-
-PRODUCER_FARM_AUTH_KEY = ''
 
 client_sockets_lock = asyncio.Lock()
 async def event_wait(evt, timeout):
@@ -70,7 +68,11 @@ async def delete_socket_key(socket_id, key, client_sockets):
 
 async def write_transaction(which, data):
     response = {}
-    url = 'http://localhost/cgi-bin/transaction.py'
+    if PV_POST_TRANSACTION_URL == '':
+        return response
+
+    #url = 'http://localhost/cgi-bin/transaction.py'
+    url = PV_POST_TRANSACTION_URL
     req = urllib.request.Request(url)
     req.add_header('Content-Type', 'application/json')
     req.add_header('X-WHICH', which)
@@ -80,7 +82,11 @@ async def write_transaction(which, data):
 
 
 async def validate_client_connection(endpoint_key):
-    url = 'http://localhost/cgi-bin/validate_key.py?key=' + endpoint_key
+    if PV_VALIDATE_USER_URL == '':
+        # if null url everybody gets 2MB
+        return 2000000
+
+    url = PV_VALIDATE_USER_URL + endpoint_key
     req = urllib.request.Request(url)
     with urllib.request.urlopen(req) as response:
         return response.read()
