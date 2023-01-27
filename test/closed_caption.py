@@ -5,6 +5,9 @@ from threading import Thread
 run like this ...
 
   arecord -f s16_le -c 1 -r 16000 | python closed_caption.py
+  OR
+  for Mac using sox
+  rec -r 16000 -c 1 -b 16 -t wav - | python closed_caption.py
 """
 def signal_handler(sig, frame):
     sys.stdout.buffer.flush()
