@@ -6,7 +6,8 @@ and waits for requests to convert a text string to a wav file.
 script uses the coqui tts models to perform the transcription.
 """
 VERSION="1.0"
-print(VERSION)
+RELEASE_DATE="January 27th, 2023"
+print("PriVox TTS Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
 
 import datetime, socket, time, TTS, sys
 from io import BytesIO
@@ -15,7 +16,7 @@ from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
 
 PRODUCER_FARMS = {
-#        'pfalpha': {'ssl':'no'},
+        'pfalpha': {'ssl':'no'},
         'pfbeta':  {'ssl':'no'},
         'spfbeta': {'ssl':'yes'}
         }
@@ -187,6 +188,20 @@ if __name__ == "__main__":
     MY_KEY = sys.argv[1]
     SLEEP_TIME = 60
     PORT = 1777                  # The port used by the server
+
+    preferred_farm = None
+    if len(sys.argv) > 2:
+        # if we were supplied with a preferred producer farm
+        # we try it first but will fall thru if the socket fails.
+        preferred_farm = sys.argv[2]
+        HOST = preferred_farm + ".privox.io"
+        ssl = PRODUCER_FARMS[preferred_farm]['ssl']
+        print("\nTrying to connect to preferred producer farm = %s, ssl = %s, url = %s" % (preferred_farm, ssl, HOST))
+        tpn = TTSProducerNode(HOST, PORT)
+        print("status %s" % (tpn.status,))
+        if tpn.status == 'connected':
+            tpn.process()
+        print("SPN exited, reason = %s, msg = %s, continue with normal retry logic." % (tpn.status, tpn.err_msg))
 
     while True:
         for farm in PRODUCER_FARMS:

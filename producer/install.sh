@@ -5,3 +5,4 @@ pip install webrtcvad
 pip install git+https://github.com/openai/whisper.git
 pip install -U TTS
 
+bash prime.sh

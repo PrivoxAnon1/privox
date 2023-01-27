@@ -6,20 +6,21 @@ stt_producer_socket:
   for requests to convert a wav file to a text string.
 """
 VERSION="1.0"
-print(VERSION)
+RELEASE_DATE="January 27th, 2023"
+print("PriVox STT Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
 
 import datetime, whisper, socket, numpy, time, sys, io
 from zipfile import ZipFile
 
 PRODUCER_FARMS = {
-        'pfbeta':  {'ssl':'no'},
         'pfalpha': {'ssl':'no'},
+        'pfbeta':  {'ssl':'no'},
         'spfbeta': {'ssl':'yes'}
         }
 
 def usage():
     log_msg("Usage:")
-    log_msg("    ./stt_prodeucer_socket.py API_KEY")
+    log_msg("    ./stt_producer_socket.py API_KEY")
     log_msg("Where:")
     log_msg("    API_KEY is your user key from your profile page.")
     quit()
@@ -165,6 +166,20 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         usage()
     MY_KEY = sys.argv[1]
+
+    preferred_farm = None
+    if len(sys.argv) > 2:
+        # if we were supplied with a preferred producer farm
+        # we try it first but will fall thru if the socket fails.
+        preferred_farm = sys.argv[2]
+        HOST = preferred_farm + ".privox.io"
+        ssl = PRODUCER_FARMS[preferred_farm]['ssl']
+        print("\nTrying to connect to preferred producer farm = %s, ssl = %s, url = %s" % (preferred_farm, ssl, HOST))
+        spn = STTProducerNode(HOST, PORT)
+        print("status %s" % (spn.status,))
+        if spn.status == 'connected':
+            spn.process()
+        print("SPN exited, reason = %s, msg = %s, continue with normal retry logic." % (spn.status, spn.err_msg))
 
     while True:
         for farm in PRODUCER_FARMS:
