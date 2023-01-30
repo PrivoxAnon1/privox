@@ -4,12 +4,16 @@ The Repository
 .. toctree::
    :maxdepth: 2
 
-The repository contains all the code necessary to deploy the public voice exchange as
+The `repository`_ contains all the code necessary to deploy the public voice exchange as
 well as all the code necessary to run a local copy on a single machine. It is the code
 the public voice exchange is currently running, though the cloud based voice network is
 composed of several servers.
 
 The repository is broken up into general areas of responsibility as follows.
+
+
+.. _repository: https://github.com/PrivoxAnon1/privox
+
 
 ===
 API

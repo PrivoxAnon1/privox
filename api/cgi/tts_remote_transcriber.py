@@ -1,18 +1,11 @@
-import socket, random, time, sys, cgi, os
+import socket, time, sys, cgi, os
 from cgi_config import ACK_NAK_SIZE, TTS_PORT
 from cgi_util import bark
-
-PRODUCER_FARMS = ['pfalpha', 'pfbeta']
-
-def get_producer_farm():
-    max_val = len(PRODUCER_FARMS)
-    rnd_val = int( random.random() * 100 ) % max_val
-    return PRODUCER_FARMS[rnd_val] + ".privox.io"
-
 
 class TTS_Transcriber:
     def __init__(self):
         self.wav_data = b''
+        self.farm = ''
 
     def recv_freakin_data(self, sock, wav_data_len):
         bytes_rcvd = 0
@@ -28,7 +21,7 @@ class TTS_Transcriber:
 
     def transcribe(self, user_key, model, voice, text_input, lang):
         result = 'TTS: Creepy Internal Error 101'
-        PV_PRODUCER_FARM = get_producer_farm()
+        PV_PRODUCER_FARM = self.farm
         bark("TTS selected %s" % (PV_PRODUCER_FARM,))
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             try:

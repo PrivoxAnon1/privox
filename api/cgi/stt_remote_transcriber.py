@@ -1,19 +1,12 @@
-import socket, random
+import socket
 from cgi_config import ACK_NAK_SIZE, STT_PORT
 from cgi_util import bark
-
-PRODUCER_FARMS = ['pfalpha', 'pfbeta']
-
-def get_producer_farm():
-    max_val = len(PRODUCER_FARMS)
-    rnd_val = int( random.random() * 100 ) % max_val
-    return PRODUCER_FARMS[rnd_val] + ".privox.io"
-
 
 class STT_Transcriber:
     def __init__(self):
         self.text = ''
         self.err_msg = ''
+        self.farm = ''
 
     def send_freakin_data(self, sock, wav_data):
         # you would think after 20 years 
@@ -32,7 +25,7 @@ class STT_Transcriber:
     def transcribe(self, user_key, model_name, wav_data, lang):
         self.text = 'Creepy Internal Error 101'
         self.err_msg = 'err'
-        PV_PRODUCER_FARM = get_producer_farm()
+        PV_PRODUCER_FARM = self.farm
         bark("stt - trying producer farm: %s" % (PV_PRODUCER_FARM,))
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             try:

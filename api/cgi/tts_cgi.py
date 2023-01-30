@@ -32,7 +32,8 @@ class TTS_CGI():
         try: self.user_key = self.user_key.decode('utf-8')
         except: pass
         if type(self.user_key) != str:
-            self.error_msg = "Invalid API Key Format"
+            self.error_msg = "Invalid API Key Format (%s)" % (type(self.user_key),)
+            bark(self.error_msg)
             return
 
         # no key no service

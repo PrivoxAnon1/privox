@@ -25,6 +25,7 @@ Index
 .. toctree::
    :maxdepth: 2
 
+   home
    intro
    audience
    overview

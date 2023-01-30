@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import socket, time, sys, cgi, os
+import socket, random, time, sys, cgi, os
 import urllib.request
 import cgitb
 cgitb.enable()
@@ -34,6 +34,13 @@ Where:
 
 Everything is optional except key and text.
 """
+PRODUCER_FARMS = ['pfalpha', 'pfbeta']
+
+def get_producer_farm():
+    max_val = len(PRODUCER_FARMS)
+    rnd_val = int( random.random() * 100 ) % max_val
+    return PRODUCER_FARMS[rnd_val] + ".privox.io"
+
 tts_cgi = TTS_CGI("remote")
 if tts_cgi.error_msg != '':
     bail(tts_cgi.error_msg)
@@ -45,9 +52,17 @@ if tts_cgi.error_msg != '':
 retry_ctr = 3
 result = ''
 while retry_ctr > 0 and result != "SUCCESS":
+    tts_cgi.transcriber.farm = get_producer_farm()
     result = tts_cgi.transcribe()
     bark("try tts transcribe, ctr = %s, result = %s" % (retry_ctr,result))
     retry_ctr -= 1
+
+if result != 'SUCCESS':
+    # no choice but to fallback
+    bark("FALLBACK TTS !!!!!!!!!!!!!")
+    tts_cgi.transcriber.farm = 'pfreserved.privox.io'
+    tts_cgi.transcribe()
+    result = tts_cgi.transcribe()
 
 # otherwise all is good, send back wav data
 print('Content-Type: audio/x-wav\r\n\r\n', end='')

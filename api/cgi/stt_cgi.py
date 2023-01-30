@@ -74,7 +74,8 @@ class STT_CGI():
         # quality
         self.quality = form.getvalue('quality')
         if not self.quality:
-            self.quality = DEFAULT_STT_QUALITY
+            #self.quality = DEFAULT_STT_QUALITY
+            self.quality = 'fast'
         else:
             try: self.quality = self.quality.decode('utf-8')
             except: pass

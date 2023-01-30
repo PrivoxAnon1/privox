@@ -18,7 +18,6 @@ async def find_next_available_client(client_sockets):
                 # found an idle client socket
                 client_sockets[cs]['status'] == 'busy'
                 return client_sockets[cs]['sid']
-
         return 0
 
 

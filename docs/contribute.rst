@@ -27,7 +27,8 @@ Run install script
    cd Privox
    ./producer/install.sh
 
-This will install the TTS and STT packages and create the necessary directory structure.
+This will install the TTS and STT packages and create the necessary directory structure
+which is basically a subdirectory named 'logs' to stick the log file output in.
 
 .. _my-section:
 
@@ -83,5 +84,8 @@ Laptop
 ------
 
 Laptops tend to shutdown when you close the lid, even if you leave them plugged in. To overcome this should you want to leave your laptop producing while you are away simply disable your laptop suspend behavior as described in the following articles ...
+
+`Ask Ubuntu, Laptop Lid <https://askubuntu.com/questions/141866/keep-ubuntu-server-running-on-a-laptop-with-the-lid-closed>`_
+
 
 
