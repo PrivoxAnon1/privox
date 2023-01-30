@@ -23,7 +23,7 @@ nodes, but most producer farms are user contributed as are most producer nodes.
 
 When a request is received by an API server (api.privox.io/stt for example), it selects a user
 powered producer farm and sends it the request. If that fails it will try a second and if that
-fails, it will fallback to a organizational producer farm.
+fails, it will fallback to an organizational producer farm.
 
 Currently the producer farm work distribution strategy is simply to spin thru the list of 
 available producer nodes in an array which is organized by time connected and forward the 
