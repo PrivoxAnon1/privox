@@ -5,8 +5,8 @@ stt_producer_socket:
   this script connects a socket to a producer farm and waits 
   for requests to convert a wav file to a text string.
 """
-VERSION="1.0"
-RELEASE_DATE="January 27th, 2023"
+VERSION="1.1"
+RELEASE_DATE="January 30th, 2023"
 print("PriVox STT Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
 
 import datetime, whisper, socket, numpy, time, sys, io
@@ -63,7 +63,7 @@ class STTProducerNode:
             self.err_msg = "can't establish identity"
             return 
 
-        log_msg("Waiting for rquests")
+        log_msg("Waiting for requests")
 
         client_state = "waiting_hdr"
         wav_data = b''
@@ -79,14 +79,14 @@ class STTProducerNode:
 
             if client_state == "waiting_hdr":
                 header = data.decode("utf-8").split('&')
-                log_msg("HDR: %s" % (header,))
+                #log_msg("HDR: %s" % (header,))
 
                 if not header[0]:
                     log_msg("Missing Header")
 
                 elif header[0].startswith("ping"):
                     self.s.sendall(b'pong')
-                    log_msg("Sent ['Pong']")
+                    log_msg("Responded to ping from %s" % (self.host,))
 
                 elif header[0].startswith("model"):
                     model_name = header[0].split('=')[1]

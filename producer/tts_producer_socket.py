@@ -5,8 +5,8 @@ tts endpoint. this script connects a socket to a producer farm
 and waits for requests to convert a text string to a wav file.
 script uses the coqui tts models to perform the transcription.
 """
-VERSION="1.0"
-RELEASE_DATE="January 27th, 2023"
+VERSION="1.1"
+RELEASE_DATE="January 30th, 2023"
 print("PriVox TTS Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
 
 import datetime, socket, time, TTS, sys
@@ -123,17 +123,14 @@ class TTSProducerNode:
                 self.err_msg = "Error, connection with cloud broken. Bailing!"
                 return
 
-            log_msg("rcvd %s bytes of data" % (len(data),))
- 
             header = data.decode("utf-8").split("&")
-            log_msg("HDR: %s" % (header,))
 
             if not header[0]:
                 log_msg("Missing Header")
 
             elif header[0].startswith("ping"):
                 self.s.sendall(b"pong")
-                log_msg("Sent ['Pong']")
+                log_msg("Responded to ping from %s" % (self.host,))
 
             elif header[0].startswith("model"):
                 # required params
