@@ -9,18 +9,18 @@ Contributing
 Installation
 ============
 
-----------
-Clone Repo
-----------
+--------------
+Clone the repo
+--------------
 
 .. code-block:: bash
 
    git clone https://github.com/PrivoxAnon1/privox.git
 
 
-------------------
-Run install script
-------------------
+----------------------
+Run the install script
+----------------------
 
 .. code-block:: bash
 
@@ -28,7 +28,13 @@ Run install script
    ./producer/install.sh
 
 This will install the TTS and STT packages and create the necessary directory structure
-which is basically a subdirectory named 'logs' to stick the log file output in.
+which is basically a subdirectory named 'logs' to stick the log file output in. It will
+also test each STT model and TTS voice. This is to preload the models so they are already
+loaded once you begin producing.
+
+You will only do this once. Depending on your system it could take close to 15 minutes 
+to complete.
+
 
 .. _my-section:
 
@@ -55,6 +61,25 @@ available STT nodes increase by one. Your fellow consumers appreciate it.
 Press Ctl+C at any time to stop the program.
 
 .. _about page: https://privox.io/about
+
+
+You can also specify the producer farm you want to connect to on the command line. By deault
+pfAlpha is the first farm tried but you can override this behavior.
+
+
+.. code-block:: bash
+
+   python stt_producer_socket.py MY_API_KEY pfbeta
+
+
+Or you can specify your own producer farm.
+
+
+.. code-block:: bash
+
+   python stt_producer_socket.py MY_API_KEY MY_PRODUCER_FARM_URI
+
+
 
 
 ----------

@@ -47,17 +47,21 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="home.html">Back To Privox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="home.html">Privox Website</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audience.html">Intended Audience</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use.html">Using Privox</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">The Website</a><ul class="simple">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Website</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#profile">Profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transactions">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#system-capacity">System Capacity</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="repo.html">The Repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="how.html">How It Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements</a></li>
 </ul>
 
@@ -92,27 +96,57 @@
 <h1>The Website<a class="headerlink" href="#the-website" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>The website provides the interface for users to see their production and consumption numbers. It also has a limited ‘profile’ page which shows the user email address and API key.</p>
+<section id="profile">
+<h2>Profile<a class="headerlink" href="#profile" title="Permalink to this heading">¶</a></h2>
+<p>The website provides the interface for users to see their production and consumption numbers as well as their basic account information and any active producer sessions. You access your profile page by clicking the profile icon near the upper right of your screen, once you are logged in.</p>
 <figure class="align-default" id="id1">
+<img alt="_images/privox_header.png" class="with-border" src="_images/privox_header.png" />
+<figcaption>
+<p><span class="caption-text">User select section of header</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The website has a limited ‘profile’ page which shows the user email address, API key and a few other basic attributes.</p>
+<figure class="align-default" id="id2">
 <img alt="_images/profile_top.png" class="with-border" src="_images/profile_top.png" />
 <figcaption>
-<p><span class="caption-text">User Profile account info</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">User Profile account info</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>Users consume resource (technically QSS) each time they request transcription from an API. They also accumulate QSS each time they produce. This information is summarized in the table in the middle of the profile page and it will look something like this …</p>
-<figure class="align-default" id="id2">
+<figure class="align-default" id="id3">
 <img alt="_images/profile_middle.png" class="with-border" src="_images/profile_middle.png" />
 <figcaption>
-<p><span class="caption-text">User Profile consumption overview</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">User Profile consumption overview</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
-<p>Below this table is a list of producer sessions associated with the user. If you have not contributed yet you will see a blank table near the bottom of your page.</p>
-<figure class="align-default" id="id3">
+<p>Below this table is a list of producer sessions associated with the user. If you have not contributed yet you will see a blank table near the bottom of your page otherwise you will see something like this.</p>
+<figure class="align-default" id="id4">
 <img alt="_images/profile_bottom.png" class="with-border" src="_images/profile_bottom.png" />
 <figcaption>
-<p><span class="caption-text">User Profile producer nodes</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">User Profile producer nodes</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
+</section>
+<section id="transactions">
+<h2>Transactions<a class="headerlink" href="#transactions" title="Permalink to this heading">¶</a></h2>
+<p>If you have produced any active sessions you can view every transaction for every session on your transactions page. This is accessible by clicking the bell icon near the upper right of your screen when you are logged in. This will bring you to a transaction detail page which will look similar to this.</p>
+<figure class="align-default" id="id5">
+<img alt="_images/transactions.png" class="with-border" src="_images/transactions.png" />
+<figcaption>
+<p><span class="caption-text">Sample user transactions page</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="system-capacity">
+<h2>System Capacity<a class="headerlink" href="#system-capacity" title="Permalink to this heading">¶</a></h2>
+<p>Total system capacity is a function of all active nodes at any given point in time across the entire network. These numbers may be seen on the ‘about’ page of the website, near the middele of the page.</p>
+<figure class="align-default" id="id6">
+<img alt="_images/network_capacity.png" class="with-border" src="_images/network_capacity.png" />
+<figcaption>
+<p><span class="caption-text">Network Capacity on the about page</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 
 

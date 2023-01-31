@@ -23,7 +23,7 @@ Index
 =====
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    home
    intro
@@ -34,5 +34,6 @@ Index
    repo
    contribute
    how
+   design
    ack
 

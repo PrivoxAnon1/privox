@@ -1,21 +1,20 @@
 #!/usr/bin/env python
+import datetime, whisper, socket, numpy, time, sys, io
+from zipfile import ZipFile
 """
 stt_producer_socket: 
   a stt producer which adheres to the privox pull node protocol.
   this script connects a socket to a producer farm and waits 
   for requests to convert a wav file to a text string.
 """
-VERSION="1.1"
-RELEASE_DATE="January 30th, 2023"
+VERSION="1.2"
+RELEASE_DATE="January 31st, 2023"
 print("PriVox STT Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
-
-import datetime, whisper, socket, numpy, time, sys, io
-from zipfile import ZipFile
 
 PRODUCER_FARMS = {
         'pfalpha': {'ssl':'no'},
         'pfbeta':  {'ssl':'no'},
-        'spfbeta': {'ssl':'yes'}
+        'pfsecure1': {'ssl':'yes'}
         }
 
 def usage():
@@ -56,13 +55,11 @@ class STTProducerNode:
             return True
         return False
 
-
     def process(self):
         if not self.identity_established():
             self.status = "inactive"
             self.err_msg = "can't establish identity"
             return 
-
         log_msg("Waiting for requests")
 
         client_state = "waiting_hdr"
@@ -94,7 +91,7 @@ class STTProducerNode:
                     lang = header[2].split('=')[1]
                     client_state = "waiting_wav"
                     self.s.sendall(b'ack')
-                    log_msg("ACK'ed the header, new state = %s" % (client_state,))
+                    #log_msg("ACK'ed the header, new state = %s" % (client_state,))
 
                 else:
                     log_msg("Ignoring invalid header = %s" % (header,))
@@ -105,7 +102,6 @@ class STTProducerNode:
 
                 if len(wav_data) >= wav_data_len:
                     client_state = "waiting_hdr"
-                    log_msg("New state = %s" % (client_state,))
 
                     ## given wav_data, if compressed uncompress
                     ## otherwise pass it thru
@@ -150,7 +146,7 @@ class STTProducerNode:
 
                     wav_data_len = 0
                     wav_data = b''
-                    log_msg("client sending response back = %s" % (text,))
+                    #log_msg("client sending response back = %s" % (text,))
                     self.s.sendall(text.encode("utf-8"))
             else:
                 log_msg("Bailing!")
@@ -173,21 +169,36 @@ if __name__ == "__main__":
         # we try it first but will fall thru if the socket fails.
         preferred_farm = sys.argv[2]
         HOST = preferred_farm + ".privox.io"
-        ssl = PRODUCER_FARMS[preferred_farm]['ssl']
+
+        ssl = "no"
+        farm_entry = PRODUCER_FARMS.get("preferred_farm", None)
+        if farm_entry:
+            ssl = farm_entry.get("ssl", "no")
+
         print("\nTrying to connect to preferred producer farm = %s, ssl = %s, url = %s" % (preferred_farm, ssl, HOST))
+
         spn = STTProducerNode(HOST, PORT)
+
         print("status %s" % (spn.status,))
         if spn.status == 'connected':
             spn.process()
+
         print("SPN exited, reason = %s, msg = %s, continue with normal retry logic." % (spn.status, spn.err_msg))
 
     while True:
         for farm in PRODUCER_FARMS:
-            ssl = PRODUCER_FARMS[farm]['ssl']
+            ssl = "no"
+            farm_entry = PRODUCER_FARMS.get("preferred_farm", None)
+            if farm_entry:
+                ssl = farm_entry.get("ssl", "no")
             HOST = farm + ".privox.io"
+
             print("\nTrying to connect to producer farm = %s, ssl = %s, url = %s" % (farm, ssl, HOST))
+
             spn = STTProducerNode(HOST, PORT)
+
             print("status %s" % (spn.status,))
+
             if spn.status == 'connected':
                 spn.process()
             print("SPN exited, reason = %s, msg = %s" % (spn.status, spn.err_msg))

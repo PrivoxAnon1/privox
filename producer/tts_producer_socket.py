@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-"""
-tts_socket_endpoint.py
-tts endpoint. this script connects a socket to a producer farm 
-and waits for requests to convert a text string to a wav file.
-script uses the coqui tts models to perform the transcription.
-"""
-VERSION="1.1"
-RELEASE_DATE="January 30th, 2023"
-print("PriVox TTS Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
-
 import datetime, socket, time, TTS, sys
 from io import BytesIO
 from pathlib import Path
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
 
+"""
+tts_socket_endpoint.py
+  tts endpoint. this script connects a socket to a producer farm 
+  and waits for requests to convert a text string to a wav file.
+  script uses the coqui tts models to perform the transcription.
+"""
+VERSION="1.2"
+RELEASE_DATE="January 31st, 2023"
+print("PriVox TTS Socket Producer: Version %s, Date: %s" % (VERSION, RELEASE_DATE))
+
 PRODUCER_FARMS = {
         'pfalpha': {'ssl':'no'},
         'pfbeta':  {'ssl':'no'},
-        'spfbeta': {'ssl':'yes'}
+        'spsecure1': {'ssl':'yes'}
         }
 
 def usage():
@@ -104,7 +104,6 @@ class TTSProducerNode:
             return True
         return False
 
-
     def process(self):
         if not self.identity_established():
             self.status = "inactive"
@@ -146,11 +145,10 @@ class TTSProducerNode:
                 if len( header ) > 3:
                     speaker = header[3].split("=")[1]
 
-                log_msg("lang:%s, spid:%s, model:%s, text:%s" % (language, speaker, model_name, text_input))
+                #log_msg("lang:%s, spid:%s, model:%s, text:%s" % (language, speaker, model_name, text_input))
 
                 # acknowledge header receipt
                 self.s.sendall(b"ack")
-                log_msg("Sent ack")
 
                 # do it
                 bio_fh = BytesIO()
@@ -170,7 +168,7 @@ class TTSProducerNode:
                 # a fixed length string representing the size
                 self.s.sendall(fixed_len_size.encode("utf-8"))
 
-                bio_fh.seek(0)
+                bio_fh.seek(0)  # remember, its an in memory file handle
                 sent = send_freakin_data(self.s, bio_fh)
                 log_msg("%s bytes wav data sent" % (sent,))
 
@@ -192,9 +190,15 @@ if __name__ == "__main__":
         # we try it first but will fall thru if the socket fails.
         preferred_farm = sys.argv[2]
         HOST = preferred_farm + ".privox.io"
-        ssl = PRODUCER_FARMS[preferred_farm]['ssl']
+        ssl = "no"
+        farm_entry = PRODUCER_FARMS.get("preferred_farm", None)
+        if farm_entry:
+            ssl = farm_entry.get("ssl", "no")
+
         print("\nTrying to connect to preferred producer farm = %s, ssl = %s, url = %s" % (preferred_farm, ssl, HOST))
+
         tpn = TTSProducerNode(HOST, PORT)
+
         print("status %s" % (tpn.status,))
         if tpn.status == 'connected':
             tpn.process()
@@ -202,7 +206,11 @@ if __name__ == "__main__":
 
     while True:
         for farm in PRODUCER_FARMS:
-            ssl = PRODUCER_FARMS[farm]['ssl']
+            ssl = "no"
+            farm_entry = PRODUCER_FARMS.get("preferred_farm", None)
+            if farm_entry:
+                ssl = farm_entry.get("ssl", "no")
+
             HOST = farm + ".privox.io"
             print("\nTrying to connect to producer farm = %s, ssl = %s, url = %s" % (farm, ssl, HOST))
             tpn = TTSProducerNode(HOST, PORT)

@@ -5,7 +5,7 @@ Acknowledgements
    :maxdepth: 2
 
 
-The SETI project is probably the earliest inspiration for distributing the work to volunteer nodes.
+The `SETI project`_ is probably the earliest inspiration for distributing the work to volunteer nodes.
 Projects like DeepSpeech and Coqui laid much of the groundwork necessary to be able to even
 consider something like Privox. Release of the Whisper models and associated framework was what 
 ultimately enabled Privox to be developed.
@@ -23,4 +23,8 @@ time was inspired by conversations with Josh Montgomery, also from Mycroft.ai.
 The OVOS project is also an inspiration, providing backward compatibility and extensibility to
 several voice oriented open source projects enabling rapid development of voice assistant type
 applications.
+
+
+.. _SETI project: https://www.seti.org/
+
 

@@ -47,7 +47,7 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="home.html">Back To Privox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="home.html">Privox Website</a></li>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audience.html">Intended Audience</a></li>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
@@ -55,11 +55,21 @@
 <li class="toctree-l1"><a class="reference internal" href="website.html">The Website</a></li>
 <li class="toctree-l1"><a class="reference internal" href="repo.html">The Repository</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#producing">Producing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clone-the-repo">Clone the repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-install-script">Run the install script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#producing">Producing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#foreground">Foreground</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#laptop">Laptop</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="how.html">How It Works</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements</a></li>
 </ul>
 
@@ -96,20 +106,24 @@
 </div>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
-<section id="clone-repo">
-<h3>Clone Repo<a class="headerlink" href="#clone-repo" title="Permalink to this heading">¶</a></h3>
+<section id="clone-the-repo">
+<h3>Clone the repo<a class="headerlink" href="#clone-the-repo" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/PrivoxAnon1/privox.git
 </pre></div>
 </div>
 </section>
-<section id="run-install-script">
-<h3>Run install script<a class="headerlink" href="#run-install-script" title="Permalink to this heading">¶</a></h3>
+<section id="run-the-install-script">
+<h3>Run the install script<a class="headerlink" href="#run-the-install-script" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Privox
 ./producer/install.sh
 </pre></div>
 </div>
 <p>This will install the TTS and STT packages and create the necessary directory structure
-which is basically a subdirectory named ‘logs’ to stick the log file output in.</p>
+which is basically a subdirectory named ‘logs’ to stick the log file output in. It will
+also test each STT model and TTS voice. This is to preload the models so they are already
+loaded once you begin producing.</p>
+<p>You will only do this once. Depending on your system it could take close to 15 minutes
+to complete.</p>
 </section>
 </section>
 <section id="producing">
@@ -125,6 +139,15 @@ python<span class="w"> </span>stt_producer_socket.py<span class="w"> </span>MY_A
 verify this you can look at the <a class="reference external" href="https://privox.io/about">about page</a> on the website and you should see the number of
 available STT nodes increase by one. Your fellow consumers appreciate it.</p>
 <p>Press Ctl+C at any time to stop the program.</p>
+<p>You can also specify the producer farm you want to connect to on the command line. By deault
+pfAlpha is the first farm tried but you can override this behavior.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>stt_producer_socket.py<span class="w"> </span>MY_API_KEY<span class="w"> </span>pfbeta
+</pre></div>
+</div>
+<p>Or you can specify your own producer farm.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>stt_producer_socket.py<span class="w"> </span>MY_API_KEY<span class="w"> </span>MY_PRODUCER_FARM_URI
+</pre></div>
+</div>
 </section>
 <section id="background">
 <h3>Background<a class="headerlink" href="#background" title="Permalink to this heading">¶</a></h3>

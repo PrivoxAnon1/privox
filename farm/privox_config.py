@@ -4,6 +4,21 @@
 # pseudo namespacing.
 #
 
+PRODUCER_FARM_AUTH_KEY = 'YourFarmName'
+
+
+# public facing apis. these are what our users hit
+PV_TRANSACTION_URL_STT = ''
+PV_TRANSACTION_URL_TTS = ''
+
+# location of socket servers.
+# this is used by the cgi scripts 
+# and the client endpoints
+PV_TTS_SOCKET_SERVER_IP = ''
+PV_TTS_SOCKET_SERVER_PORT = 0
+PV_STT_SOCKET_SERVER_IP = ''
+PV_STT_SOCKET_SERVER_PORT = 0
+
 # validate response shared with cgi script
 PV_USER_KEY_NOT_FOUND = -1
 

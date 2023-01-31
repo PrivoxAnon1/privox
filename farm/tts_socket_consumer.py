@@ -7,10 +7,9 @@ from privox_utils import (
         update_client_sockets,
         set_socket_event,
         clear_socket_event,
-        delete_socket_key,
-        PRODUCER_FARM_AUTH_KEY
+        delete_socket_key
         )
-from privox_config import TTS_CLIENT_REQUEST_TIMEOUT
+from privox_config import TTS_CLIENT_REQUEST_TIMEOUT, PRODUCER_FARM_AUTH_KEY
 
 async def handle_consumer_socket(client, sid, event, client_sockets, monitor_stats):
     """ a consumer socket is typically a request from a

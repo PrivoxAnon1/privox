@@ -1,11 +1,11 @@
-Back To Privox
+Privox Website
 **************
 
 .. toctree::
    :maxdepth: 2
 
 
-You are leaving the Privox documentation site and returning the main page of the website. 
+Note, you are leaving the Privox documentation site (which is hosted on the ReadTheDocs website) and returning to the main page of the Privox website. 
 Click to continue. 
 
 `Privox.io`_ 

@@ -6,11 +6,10 @@ from privox_utils import (
         write_transaction,
         update_client_sockets,
         set_socket_event,
-        delete_socket_key,
-        PRODUCER_FARM_AUTH_KEY
+        delete_socket_key
         )
 
-from privox_config import STT_CLIENT_REQUEST_TIMEOUT
+from privox_config import STT_CLIENT_REQUEST_TIMEOUT, PRODUCER_FARM_AUTH_KEY
 
 async def handle_consumer_socket(client, sid, event, client_sockets, monitor_stats):
     """ a server socket is typically a request from a

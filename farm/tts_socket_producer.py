@@ -4,9 +4,9 @@ from privox_utils import (
         write_transaction, 
         update_client_sockets,
         set_socket_event,
-        clear_socket_event,
-        PRODUCER_FARM_AUTH_KEY
+        clear_socket_event
         )
+from privox_config import PRODUCER_FARM_AUTH_KEY
 
 PING_FREQUENCY = 10
 PING_PONG_SIZE = 4

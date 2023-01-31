@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Design Guide &#8212; Privox 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Acknowledgements" href="ack.html" />
+    <link rel="prev" title="How It Works" href="how.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Privox</a></h1>
+
+
+
+<p class="blurb">Voice Exchange</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=PrivoxAnon1&repo=Privox&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="home.html">Privox Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="audience.html">Intended Audience</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Using Privox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="website.html">The Website</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repo.html">The Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="how.html">How It Works</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-apis">Public APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#speech-recognition">Speech Recognition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#voice-generation">Voice Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-locally">Running Locally</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ack.html">Acknowledgements</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="how.html" title="previous chapter">How It Works</a></li>
+      <li>Next: <a href="ack.html" title="next chapter">Acknowledgements</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="design-guide">
+<h1>Design Guide<a class="headerlink" href="#design-guide" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The Privox private voice exchange provides users with a free, privacy respecting, anonymous, user
+powered voice network, however, it has its limitations. These arise from the small size of the
+network initially and as the network grows these limitations will disappear, however, they exist
+today and so to effectively use the exchange you will need to be aware of its current limitations.</p>
+</section>
+<section id="public-apis">
+<h2>Public APIs<a class="headerlink" href="#public-apis" title="Permalink to this heading">¶</a></h2>
+<section id="speech-recognition">
+<h3>Speech Recognition<a class="headerlink" href="#speech-recognition" title="Permalink to this heading">¶</a></h3>
+<p>The Privox voice network is a bit different than your average big name provider. For one, the speech
+recognition issues associated with computing power are something you would not normally have to
+concern yourself with. The whole concept of a quality speech second does not exist when you hit the
+API of a properly funded provider.</p>
+<p>So to effectively use the Privox voice exchange you will need to be somewhat aware of its limitations.
+The computing power of the private voice exchange (PVX) is provided by users. Most users do not have
+machines capable of handling the larger models. As a result, you should only specify a model that
+starts with the letter ‘x’ (xcribe and xcribe2) when you require the best accuracy possible. This is
+what we call ‘transcription’ quality. In the future there will be specific producer farms dedicated
+to this type of traffic, but for the initial releases this is not the case so if you use one of the
+transcribe models it will take about ten times as long as your input file length in seconds to turn
+around the response. This would be less than ideal for most applications other than transcription.</p>
+<p>Voice assistants and other real-time applications should specify the ‘tiny’ or ‘base’ models and if
+possible, specify the ‘English’ language as these smaller models have ‘English’ only versions which
+may provide improved performance.</p>
+<p>Here are a few data structures from the <a class="reference external" href="https://github.com/PrivoxAnon1/privox">repository</a> which should demonstrate a few basic issues
+voice developers should be aware of.</p>
+<p><strong>Python</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">quality_to_model</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 2</span>         <span class="s1">&#39;fast&#39;</span><span class="p">:</span><span class="s1">&#39;tiny&#39;</span><span class="p">,</span>
+<span class="linenos"> 3</span>         <span class="s1">&#39;normal&#39;</span><span class="p">:</span><span class="s1">&#39;base&#39;</span><span class="p">,</span>
+<span class="linenos"> 4</span>         <span class="s1">&#39;better&#39;</span><span class="p">:</span><span class="s1">&#39;small&#39;</span><span class="p">,</span>
+<span class="linenos"> 5</span>         <span class="s1">&#39;best&#39;</span><span class="p">:</span><span class="s1">&#39;medium&#39;</span><span class="p">,</span>
+<span class="linenos"> 6</span>         <span class="s1">&#39;xcribe&#39;</span><span class="p">:</span><span class="s1">&#39;large&#39;</span><span class="p">,</span>
+<span class="linenos"> 7</span>         <span class="s1">&#39;xcribe2&#39;</span><span class="p">:</span><span class="s1">&#39;large-v2&#39;</span>
+<span class="linenos"> 8</span>     <span class="p">}</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">quality_to_multiplier</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">11</span>         <span class="s1">&#39;fast&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">12</span>         <span class="s1">&#39;normal&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="linenos">13</span>         <span class="s1">&#39;better&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="linenos">14</span>         <span class="s1">&#39;best&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+<span class="linenos">15</span>         <span class="s1">&#39;xcribe&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+<span class="linenos">16</span>         <span class="s1">&#39;xcribe2&#39;</span><span class="p">:</span> <span class="mi">32</span>
+<span class="linenos">17</span>     <span class="p">}</span>
+</pre></div>
+</div>
+<p>Users of the Whisper STT models will recognize the entries as they abstact out the Whisper recognition models.</p>
+<p>The transcription time for a five second audio input can range from a half a second (using the ‘tiny.en’ model)
+to over seventeen seconds (using the ‘xcribe2’ model).</p>
+<ul class="simple">
+<li><p>Tiny - 0.5</p></li>
+<li><p>Base - 1.0</p></li>
+<li><p>Small - 3.0</p></li>
+<li><p>Medium - 9.0</p></li>
+<li><p>Large - 17.5</p></li>
+<li><p>LargeX2 - 17.5</p></li>
+</ul>
+<p>Which is why real-time applications should stick with the smaller models.</p>
+</section>
+<section id="voice-generation">
+<h3>Voice Generation<a class="headerlink" href="#voice-generation" title="Permalink to this heading">¶</a></h3>
+<p>Voice (TTS) is currently provided by the Coqui TTS engine, though this will expand in the near future as
+other engines are added (note this will also be the case for STT as new recognizer engines are added).</p>
+<p>The interface is abstract and extremely limited. Currently only two voices are supported, a high pitched and low
+pitched voice. No other voice parameters are currently supported. Note it is on the roadmap to expand on this
+soon and python contributors are encouraged to address this issue as it can improve the user experience significantly.</p>
+</section>
+</section>
+<section id="running-locally">
+<h2>Running Locally<a class="headerlink" href="#running-locally" title="Permalink to this heading">¶</a></h2>
+<p>Running a local or edge device is a great alternative if your needs are more than the public APIs can provide. Privox
+encourages open source development and is simply a wrapper around a couple of other key open source technologies which
+you already have loaded if you contributed to the PVX (and if not, shame on you), so using Whisper (STT) and/or Coqui
+(TTS) locally is a relatively trivial issue as shown below …</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ arecord -f s16_le -c 1 -r 16000 | python closed_caption.py
+
+Recording WAVE &#39;stdin&#39; : Signed 16 bit Little Endian, Rate 16000 Hz, Mono
+STT Transcriber: Running
+
+Testing, one, two, three. [Took 3.95 to transcribe 42240 bytes]
+What time is it? [Took 3.80 to transcribe 23040 bytes]
+What is? [Took 3.71 to transcribe 10560 bytes]
+today&#39;s date. [Took 3.55 to transcribe 24000 bytes]
+What is today&#39;s? [Took 3.79 to transcribe 29760 bytes]
+date. [Took 3.51 to transcribe 11840 bytes]
+What is today&#39;s date? [Took 3.81 to transcribe 41920 bytes]
+This was using the small model. [Took 3.88 to transcribe 57920 bytes]
+</pre></div>
+</div>
+<p>Note this example code comes from the <a class="reference external" href="https://github.com/PrivoxAnon1/privox">repository</a> in the ‘test/’ directory. As you can see
+the silence detector could use some work.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2023, Anon1.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/design.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
